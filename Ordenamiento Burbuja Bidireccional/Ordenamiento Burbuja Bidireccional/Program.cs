@@ -10,37 +10,56 @@ namespace Ordenamiento_Burbuja_Bidireccional
     {
         static void Main(string[] args)
         {
-            //Metodo Burbuja - Ordenamiento de un vector (Arreglo)
-            int n;
-            Console.Write("Escriba la cantidad de numeros: ");
-            n = int.Parse(Console.ReadLine());
-            int[] vector = new int[n];
-            for (int i = 0; i < n; i++)
-            {
-                Console.Write("Numero {0}: ", (i + 1));
-                vector[i] = int.Parse(Console.ReadLine());
-            }
+            Program bb = new Program();
+            bb.IngresarDatos();
+            bb.BurbujaBidireccional();
+        }
 
-            //Metodo Burbuja
-            for (int i = 0; i < n; i++)
+        private int[] vector; //variable global de tipo arreglo
+
+        public void IngresarDatos()
+        {
+            Console.WriteLine("Metodo Burbuja Bidireccional");
+            Console.Write("Longitud del vector: ");
+            int cant;
+            cant = int.Parse(Console.ReadLine());
+            vector = new int[cant];
+            for(int f = 0; f < vector.Length; f++)
             {
-                for(int j = i + 1; j < n; j++)
+                Console.Write("Ingrese el elemento " + (f + 1) + " : ");
+                vector[f] = int.Parse(Console.ReadLine());
+            }
+        }
+
+        public void BurbujaBidireccional()
+        {
+            int b = 1;
+            int aux = 0;
+            int n = vector.Length;
+            //ordena los numeros de mayor a menor
+            for (int paso = 0; paso < vector.Length - 1 && b == 1; paso++)
+            //si en el paso anterior no hubo cambios se detiene el ciclo
+            {
+                for (int j = 0; j < n - paso - 1; j++)
+                //las comparaciones van disminuyendo a medida que se afectan los pasos
                 {
-                    int aux;
-                    if(vector[i] > vector[j])
+                    if (vector[j] < vector[j + 1])
                     {
-                        aux = vector[i];
-                        vector[i] = vector[j];
-                        vector[j] = aux;
+                        b = 1;
+                        aux = vector[j];
+                        vector[j] = vector[j + 1];
+                        vector[j + 1] = aux;
                     }
                 }
+               
             }
 
-            Console.WriteLine("Datos ordenados: ");
-            for(int i = 0; i < n; i++)
+            Console.WriteLine("Vector ordenado en forma descendente:");
+            for (int f = 0; f < vector.Length; f++)
             {
-                Console.WriteLine(vector[i]);
+                Console.Write(vector[f] + " ");
             }
+
             Console.ReadKey();
         }
     }
